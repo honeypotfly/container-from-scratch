@@ -23,7 +23,7 @@ func main() {
 }
 
 
-// This one is going to create the system, it is going to run *itself*. We need this in order to set the hostname inside the container
+// This one is going to create the system, it is going to run *itself*. We need this in order to set the namespace.
 func run() {
     fmt.Printf("Running %v\n", os.Args[2:])
 
@@ -37,10 +37,12 @@ func run() {
     cmd.SysProcAttr = &syscall.SysProcAttr {
         Cloneflags: syscall.CLONE_NEWUTS, // NEW_UTS is a new unix timesharing system. It just gives a hostname to the container.
     }
+
     cmd.Run()
 
 }
 
+// This one is going to create the system, it is going to run *itself*. We need this in order to set the things we define in the namespace.
 func child() {
     fmt.Printf("Running %v\n", os.Args[2:])
 
@@ -53,9 +55,11 @@ func child() {
     cmd.Stdout = os.Stdout
     cmd.Stderr= os.Stderr
 
-   cmd.Run()
+    cmd.Run()
 
 }
+
+
 func must (err error) {
     if err != nil {
         panic(err)
