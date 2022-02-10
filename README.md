@@ -26,7 +26,7 @@ docker run image <cmd> <params>
 
 Well, in this version, we'll need something similar:
 ```
-go run main.go run
+go run main.go run <cmd> <params>
 ```
 
 ### What is a Namespace?
