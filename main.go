@@ -35,7 +35,10 @@ func run() {
 
     // Now, we finally set the namespace
     cmd.SysProcAttr = &syscall.SysProcAttr {
-        Cloneflags: syscall.CLONE_NEWUTS | syscall.CLONE_NEWPID, // NEW_UTS is a new unix timesharing system. It just gives a hostname to the container.
+        Cloneflags: syscall.CLONE_NEWUTS | syscall.CLONE_NEWPID | syscall.CLONE_NEWNS
+        // NEW_UTS is a new unix timesharing system. It just gives a hostname to the container.
+        // NEW_PID gives us a namespace for the processes
+        // NEWNS gives us a mount namespace so that we dont stay on the root filesystem.
     }
 
 //    cmd.Run()
