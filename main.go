@@ -38,7 +38,11 @@ func run() {
         Cloneflags: syscall.CLONE_NEWUTS, // NEW_UTS is a new unix timesharing system. It just gives a hostname to the container.
     }
 
-    cmd.Run()
+//    cmd.Run()
+    if err := cmd.Run(); err != nil {
+        fmt.Println("ERROR", err)
+        os.Exit(1)
+    }
 
 }
 
